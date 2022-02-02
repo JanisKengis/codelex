@@ -4,12 +4,13 @@ class Card
 {
     private string $suit;
     private string $symbol;
-    private int $colorIndex;
+    private ?string $color;
 
-    public function __construct(string $suit, string $symbol)
+    public function __construct(string $suit, string $symbol, ?string $color = null)
     {
         $this->suit = $suit;
         $this->symbol = $symbol;
+        $this->color = $this->setColor();
     }
 
     public function getSuit(): string
@@ -22,15 +23,20 @@ class Card
         return $this->symbol;
     }
 
-    public function getColorIndex(): int
+    public function setColor(): string
     {
-        if($this->suit == '♦' || $this->suit == '♥'){
-            return 0;
-        } else {
-            return 1;
-        }
+       if($this->getSuit() == '♣' || $this->getSuit() == '♠') {
+           return $this->color = 'black';
+       }
+       if($this->getSuit() == '♦' || $this->getSuit() == '♥') {
+           return $this->color = 'red';
+       } return $this->color;
     }
 
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
 
     public function getDisplayValue(): ?string
     {

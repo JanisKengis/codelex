@@ -45,10 +45,21 @@ class Date
 
     public function displayDate():string
     {
-        return $this->day.'/'.$this->month.'/'.$this->year;
+        return $this->getDay().'/'.$this->getMonth().'/'.$this->getYear();
     }
 }
 
+class DateTest
+{
+    public function testCorrectDate()
+    {
+        echo 'Test correct date::';
+        $date = new Date(10,07,2020);
+        echo $date->displayDate() == '10/7/2020' ? 'Pass' : 'Fail';
+    }
+}
+
+(new DateTest())->testCorrectDate();
 
 while (true)
 {

@@ -30,7 +30,7 @@ class Player
     {
         $symbols = [];
         foreach ($this->cards as $card) {
-            $symbols[] = $card->getSymbol();
+            $symbols[] = $card->getSymbol().$card->getColor();
         }
 
         $uniqueCardsCount = array_count_values($symbols);
@@ -38,39 +38,17 @@ class Player
         foreach ($uniqueCardsCount as $symbol => $count)
         {
             if ($count == 1) continue;
-            if ($count == 4) {
+            if ($count == 2 || $count == 4) {
                 foreach ($this->cards as $index => $card) {
-                    if ($card->getSymbol() == $symbol) {
+                    if ($card->getSymbol().$card->getColor() == $symbol) {
                         unset($this->cards[$index]);
-                    }
-                }
-            }
-            if ($count == 2) {
-                foreach ($this->cards as $index => $card) {
-                    if ($card->getSuit() == '♣' || $card->getSuit() == '♠') {
-                        if ($card->getSymbol() == $symbol && $card->getColorIndex() == 1) {
-                            unset($this->cards[$index]);
-                        }
-                    }
-                    if ($card->getSuit() == '♥' || $card->getSuit() == '♦') {
-                        if ($card->getSymbol() == $symbol && $card->getColorIndex() == 0) {
-                            unset($this->cards[$index]);
-                        }
-
                     }
                 }
             }
             if ($count == 3) {
                 for ($i = 0; $i < 2; $i++) {
                     foreach ($this->cards as $index => $card) {
-                        if ($card->getSuit() == '♣' || $card->getSuit() == '♠') {
-                            if ($card->getSymbol() == $symbol && $card->getColorIndex() == 1) {
-                                unset($this->cards[$index]);
-                                break;
-                            }
-                        }
-                        if ($card->getSuit() == '♥' || $card->getSuit() == '♦')
-                            if ($card->getSymbol() == $symbol && $card->getColorIndex() == 0) {
+                            if ($card->getSymbol().$card->getColor() == $symbol) {
                                 unset($this->cards[$index]);
                                 break;
                             }

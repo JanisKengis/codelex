@@ -15,49 +15,58 @@ class Dog
         $this->mother = $mother;
     }
 
-    public function getName():string
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function getSex():string
+    public function getSex(): string
     {
         return $this->sex;
     }
 
+
     public function getFatherName(): string
     {
-        if($this->father == null){
+        if ($this->father == null) {
             return 'Unknown';
         } else {
             return $this->father;
         }
     }
+
+    public function hasSameMotherAs(Dog $otherDog): bool
+    {
+        return $this->mother === $otherDog->mother;
+    }
 }
 
 class DogTest
 {
-    private array $dogs;
-    public function __construct(Dog $dog)
-    {
-        $this->dogs[] = $dog;
-    }
 
-    public function getDogs():array
+    public function mainMethod()
     {
-        return $this->dogs;
+        $max = new Dog('Max', 'male', 'Lady', 'Rocky');
+        $rocky = new Dog('Rocky', 'male', 'Molly', 'Sam');
+        $sparky = new Dog('Sparky', 'male');
+        $buster = new Dog('Buster', 'male', 'Lady', 'Sparky');
+        $sam = new Dog('Sam', 'male');
+        $lady = new Dog('Lady', 'female');
+        $molly = new Dog('Molly', 'female');
+        $coco = new Dog('Coco', 'female', 'Molly', 'Buster');
+
+        echo 'Reference to Coco Father name:'.PHP_EOL;
+        echo $coco->getFatherName() == 'Buster' ? 'Pass' : 'Fail';
+        echo PHP_EOL;
+        echo 'Reference to Sparky Father name:'.PHP_EOL;
+        echo $sparky->getFatherName() == 'Unknown' ? 'Pass' : 'Fail';
+        echo PHP_EOL;
+        echo 'Has Coco the same mother as Rocky?'.PHP_EOL;
+        echo $coco->hasSameMotherAs($rocky) == true ? 'Pass' : 'Fail';
+        echo PHP_EOL;
     }
 }
 
-//$dogs = new DogTest([
-//    new Dog('Max', 'male', 'Lady', 'Rocky'),
-//    new Dog('Rocky', 'male', 'Molly', 'Sam'),
-//    new Dog('Sparky', 'male'),
-//    new Dog('Buster', 'male', 'Lady', 'Sparky'),
-//    new Dog('Sam', 'male'),
-//    new Dog('Lady', 'female'),
-//    new Dog('Molly', 'female'),
-//    new Dog('Coco', 'female', 'Molly', 'Buster'),
-////]
-//);
-//var_dump($dogs);
+(new DogTest())->mainMethod();
+
+
